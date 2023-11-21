@@ -4,10 +4,9 @@ defmodule Sentrydemo.MixProject do
   def project do
     [
       app: :sentrydemo,
-      version: "0.1.0",
-      elixir: "~> 1.5",
+      version: "1.0.0",
+      elixir: "~> 1.15",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -32,15 +31,17 @@ defmodule Sentrydemo.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.16"},
-      {:phoenix_pubsub, "~> 1.1"},
-      {:phoenix_html, "~> 2.11"},
-      {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:gettext, "~> 0.11"},
-      {:poison, "~> 3.1"},
-      {:sentry, "~> 7.0"},
-      {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:phoenix, "~> 1.7"},
+      {:phoenix_pubsub, "~> 2.1"},
+      {:phoenix_html, "~> 3.3"},
+      {:phoenix_view, "~> 2.0"},
+      {:phoenix_live_reload, "~> 1.4", only: :dev},
+      {:gettext, "~> 0.23.1"},
+      {:poison, "~> 5.0"},
+      {:sentry, "~> 9.1"},
+      {:jason, "~> 1.4"},
+      {:hackney, "~> 1.19"},
+      {:plug_cowboy, "~> 2.6"}
     ]
   end
 end
