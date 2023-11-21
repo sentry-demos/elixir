@@ -5,7 +5,7 @@
 # is restricted to this project.
 
 # General application configuration
-use Mix.Config
+import Config
 
 # Configures the endpoint
 config :sentrydemo, SentrydemoWeb.Endpoint,
@@ -24,9 +24,15 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 # Sentry
-config :sentry, dsn: "https://d12a53b0255c47ab8cd8f04e488b4dee@sentry.io/5182105",
-   included_environments: [:prod, :dev],
-   environment_name: Mix.env
+config :sentry,
+  included_environments: [:prod, :dev],
+  environment_name: Mix.env,
+  enable_source_code_context: true,
+  root_source_code_paths: [File.cwd!()],
+  context_lines: 5,
+  report_deps: true
+
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
