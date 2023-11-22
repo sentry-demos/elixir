@@ -1,9 +1,8 @@
 defmodule SentrydemoWeb.Router do
   use SentrydemoWeb, :router
-  use Plug.ErrorHandler
 
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ["html", "json"]
     plug :fetch_session
     plug :fetch_flash
     plug :protect_from_forgery
@@ -20,16 +19,11 @@ defmodule SentrydemoWeb.Router do
     get "/", PageController, :index
     get "/handled", HandledController, :index
     get "/unhandled", UnhandledController, :index
+  end
+
+  scope "/api", SentrydemoWeb do
+    pipe_through :api
+
     post "/process_order", ProcessOrderController, :index
   end
 end
-
-  # Other scopes may use custom stacks.
-#   scope "/api/v1", SentrydemoWeb do
-#     pipe_through :api
-#     get "/handled", HandledController, :index
-#     get "/unhandled", UnhandledController, :index
-#     post "/process_order", ProcessOrderController, :index
-#   end
-# end
-

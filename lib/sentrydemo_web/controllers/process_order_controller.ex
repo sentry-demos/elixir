@@ -9,24 +9,36 @@ defmodule Checkout do
   end
 
   def process_order(cart, inventory) do
-    new_inv = Enum.map(inventory, fn ({k, _v}) -> {k, Checkout.update_inventory(cart, inventory, k)} end)
+    new_inv = Enum.map(cart, fn ({k, _v}) -> {k, Checkout.update_inventory(cart, inventory, k)} end)
     Enum.into(new_inv, %{})
   end
 end
 
 defmodule SentrydemoWeb.ProcessOrderController do
-    use SentrydemoWeb, :controller
+  use SentrydemoWeb, :controller
+  plug :set_metadata
 
-    def index(conn, _params) do
-      inventory = %{"wrench" => 1, "nails" => 1, "hammer" => 1}
+  def set_metadata(conn, _opts) do
+    Sentry.Context.set_tags_context(%{customerType: "enterprise"})
+    Sentry.Context.set_user_context(%{email: "jane.doe@sentry.io"})
+    Sentry.Context.set_extra_context(%{details: "checkout flow error"})
 
-      {:ok, body, conn} = read_body(conn)
-      {:ok, parsed} = Poison.decode(body)
-      IO.inspect parsed
+    Enum.each(0..5, fn _ ->
+      Sentry.Context.add_breadcrumb(%{
+        type: :debug,
+        category: "db",
+        message: "SELECT",
+        data: %{query: "SELECT * FROM products WHERE tool = %"}
+      })
+    end)
 
-      inventory = Checkout.process_order(parsed, inventory)
-      IO.inspect inventory
-      conn
-      |> send_resp(200, Poison.encode!(inventory))
-    end
+    conn
   end
+
+  def index(conn, _params) do
+    inventory = %{"wrench" => 5, "nails" => 2, "hammer" => 4}
+    inventory = Checkout.process_order(conn.params, inventory)
+
+    conn |> json(inventory)
+  end
+end
