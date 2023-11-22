@@ -10,6 +10,11 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
+## Generating Sentry Demo Data
+
+  * Set the DSN in your shell `export SENTRY_DSN=<DSN>`
+  * Run `curl http://localhost:4000/api/process_order -H 'Content-Type: application/json' -d '{"nails": 5}' -v` to generate an exception
+
 ## Learn more
 
   * Official website: https://www.phoenixframework.org/
