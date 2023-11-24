@@ -30,7 +30,8 @@ config :sentry,
   enable_source_code_context: true,
   root_source_code_paths: [File.cwd!()],
   context_lines: 5,
-  report_deps: true
+  report_deps: true,
+  before_send_event: {Helpers.Sentry, :before_send}
 
 
 # Import environment specific config. This must remain at the bottom
