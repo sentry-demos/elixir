@@ -17,8 +17,10 @@ defmodule SentrydemoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/handled", HandledController, :index
-    get "/unhandled", UnhandledController, :index
+    get "/handled", DemoController, :handled
+    get "/unhandled", DemoController, :unhandled
+    get "/message", DemoController, :message
+    get "/exception", DemoController, :exception
   end
 
   scope "/api", SentrydemoWeb do

@@ -14,6 +14,11 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
   * Set the DSN in your shell `export SENTRY_DSN=<DSN>`
   * Run `curl http://localhost:4000/api/process_order -H 'Content-Type: application/json' -d '{"nails": 5}' -v` to generate an exception
+  * In a browser visit
+    * http://localhost:4000/handled for handled exception
+    * http://localhost:4000/unhandled for unhandled key error in map exception
+    * http://localhost:4000/message for capture message
+    * http://localhost:4000/exception for manual capture exception
 
 ## Learn more
 
