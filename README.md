@@ -20,6 +20,8 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
     * http://localhost:4000/unhandled for unhandled key error in map exception
     * http://localhost:4000/message for capture message
     * http://localhost:4000/exception for manual capture exception
+    * http://localhost:4000/task_crash for async task crash with `LoggerHandler`
+    * http://localhost:4000/genserver_crash for genserver crash with `LoggerHandler`
 
 ## Learn more
 

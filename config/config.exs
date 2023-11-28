@@ -23,6 +23,13 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Sentry LoggerHandler
+config :sentrydemo, :logger, [
+  {:handler, :sentry_handler, Sentry.LoggerHandler, %{
+    config: %{metadata: [:file, :line]}
+  }}
+]
+
 # Sentry
 config :sentry,
   environment_name: Mix.env,
