@@ -37,7 +37,7 @@ defmodule Sentrydemo.MixProject do
       {:phoenix_view, "~> 2.0"},
       {:phoenix_live_reload, "~> 1.4", only: :dev},
       {:gettext, "~> 0.23.1"},
-      {:sentry, "~> 9.1"},
+      {:sentry, "~> 10.0"},
       {:jason, "~> 1.4"},
       {:hackney, "~> 1.19"},
       {:plug_cowboy, "~> 2.6"}
