@@ -25,13 +25,12 @@ config :phoenix, :json_library, Jason
 
 # Sentry
 config :sentry,
-  included_environments: [:prod, :dev],
   environment_name: Mix.env,
   enable_source_code_context: true,
   root_source_code_paths: [File.cwd!()],
   context_lines: 5,
   report_deps: true,
-  before_send_event: {Helpers.Sentry, :before_send}
+  before_send: {Helpers.Sentry, :before_send}
 
 
 # Import environment specific config. This must remain at the bottom
