@@ -6,10 +6,13 @@ defmodule Sentrydemo.Application do
   use Application
 
   def start(_type, _args) do
+    Logger.add_handlers(:sentrydemo)
+
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      SentrydemoWeb.Endpoint
+      SentrydemoWeb.Endpoint,
+      Helpers.GenServer,
       # Starts a worker by calling: Sentrydemo.Worker.start_link(arg)
       # {Sentrydemo.Worker, arg},
     ]

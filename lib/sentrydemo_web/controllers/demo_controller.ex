@@ -33,4 +33,17 @@ defmodule SentrydemoWeb.DemoController do
         conn |> text(Exception.message(exception))
     end
   end
+
+  def task_crash(conn, _opts) do
+    Task.start(fn ->
+      raise "Task Error"
+    end)
+
+    conn |> text("task crashed")
+  end
+
+  def genserver_crash(conn, _opts) do
+    Helpers.GenServer.crash
+    conn |> text("genserver crashed")
+  end
 end

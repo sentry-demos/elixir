@@ -21,6 +21,8 @@ defmodule SentrydemoWeb.Router do
     get "/unhandled", DemoController, :unhandled
     get "/message", DemoController, :message
     get "/exception", DemoController, :exception
+    get "/task_crash", DemoController, :task_crash
+    get "/genserver_crash", DemoController, :genserver_crash
   end
 
   scope "/api", SentrydemoWeb do
