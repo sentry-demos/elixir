@@ -13,6 +13,9 @@ defmodule SentrydemoWeb.DemoController do
     |> send_resp(500, Jason.encode!(msg))
     |> halt
 
+    Sentry.Context.set_tags_context(%{status_code: 500})
+    Sentry.Context.set_tags_context(%{is_handled: true})
+
     raise "#{msg["Error"]}"
   end
 
@@ -29,6 +32,7 @@ defmodule SentrydemoWeb.DemoController do
       1 / 0
     rescue
       exception ->
+        Sentry.Context.set_tags_context(%{is_handled: true})
         Sentry.capture_exception(exception, stacktrace: __STACKTRACE__)
         conn |> text(Exception.message(exception))
     end
@@ -36,6 +40,7 @@ defmodule SentrydemoWeb.DemoController do
 
   def task_crash(conn, _opts) do
     Task.start(fn ->
+      Sentry.Context.set_tags_context(%{is_handled: true})
       raise "Task Error"
     end)
 

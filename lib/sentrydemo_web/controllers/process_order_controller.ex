@@ -1,6 +1,7 @@
 defmodule Checkout do
   def update_inventory(cart, inventory, tool) do
     if inventory[tool] < cart[tool] do
+      Sentry.Context.set_tags_context(%{is_handled: true})
       raise "Not enough inventory for #{tool}"
     else
       IO.puts "Success: #{tool} was purchased, remaining stock is #{inventory[tool]-1}"
