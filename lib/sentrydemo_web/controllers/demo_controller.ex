@@ -9,13 +9,14 @@ defmodule SentrydemoWeb.DemoController do
   def handled(conn, _opts) do
     msg = %{"Error" => "A handled error occurred."}
 
+    Sentry.Context.set_tags_context(%{status_code: 500})
+    Sentry.Context.set_tags_context(%{is_handled: true})
+
     conn
     |> send_resp(500, Jason.encode!(msg))
     |> halt
 
-    Sentry.Context.set_tags_context(%{status_code: 500})
-    Sentry.Context.set_tags_context(%{is_handled: true})
-
+    # raise an exception to send error to Sentry
     raise "#{msg["Error"]}"
   end
 
